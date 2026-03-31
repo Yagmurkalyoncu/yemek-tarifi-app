@@ -13,7 +13,12 @@ const ceviri = {
   "nohut": "chickpea", "mercimek": "lentil", "fasulye": "beans",
   "zeytin": "olive", "tereyagi": "butter", "seker": "sugar",
   "kabartma tozu": "baking powder", "vanilya": "vanilla",
-  "tuz": "salt", "zeytinyagi": "olive oil"
+  "tuz": "salt", "zeytinyagi": "olive oil",
+  "ekmek": "bread", "domates sosu": "tomato sauce",
+  "sogan tozu": "onion powder", "sarimsak tozu": "garlic powder",
+  "tatli biber": "paprika", "kimyon": "cumin", "zencefil": "ginger",
+  "tarçin": "cinnamon", "nane": "mint", "maydanoz": "parsley",
+  "dereotu": "dill", "kekik": "thyme", "defne": "bay leaf"
 };
 
 const renkler = {

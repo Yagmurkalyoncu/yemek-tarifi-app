@@ -28,6 +28,18 @@ def detay(id):
 @app.route('/api/saglik', methods=['GET'])
 def saglik():
     return jsonify({'durum': 'calisiyor'})
+# Kategoriye göre tarif ara
+@app.route('/api/kategori/<kategori>', methods=['GET'])
+def kategori(kategori):
+    url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + kategori
+    sonuc = requests.get(url).json()
+    return jsonify(sonuc)
 
+# Ülkeye göre tarif ara
+@app.route('/api/ulke/<ulke>', methods=['GET'])
+def ulke(ulke):
+    url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=" + ulke
+    sonuc = requests.get(url).json()
+    return jsonify(sonuc)
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
