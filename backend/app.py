@@ -41,5 +41,11 @@ def ulke(ulke):
     url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=" + ulke
     sonuc = requests.get(url).json()
     return jsonify(sonuc)
+# Rastgele tarif getir
+@app.route('/api/rastgele', methods=['GET'])
+def rastgele():
+    url = "https://www.themealdb.com/api/json/v1/1/random.php"
+    sonuc = requests.get(url).json()
+    return jsonify(sonuc)
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
