@@ -29,36 +29,24 @@ const metin = {
   en: {
     baslik: "🍽️ Recipe Finder",
     altyazi: "✨ Enter ingredients, find your recipe ✨",
-    ara: "Search",
-    kategori: "📂 Category",
-    ulke: "🌍 Country",
-    araTab: "🔍 Search",
+    ara: "Search", rastgele: "Random 🎲",
+    kategori: "📂 Category", ulke: "🌍 Country", araTab: "🔍 Search",
     placeholder: "Enter ingredients (e.g: chicken, onion)",
-    yukleniyor: "🌀 Loading...",
-    sonucYok: "😔 No results found.",
-    malzemeler: "🥕 Ingredients",
-    talimatlar: "📋 Instructions",
-    cevir: "🌍 Translate to Turkish",
-    geri: "← Back",
-    tarifDetay: "Recipe Detail",
+    yukleniyor: "🌀 Loading...", sonucYok: "😔 No results found.",
+    malzemeler: "🥕 Ingredients", talimatlar: "📋 Instructions",
+    cevir: "🌍 Translate to Turkish", geri: "← Back", tarifDetay: "Recipe Detail",
     kategoriler: { "Beef": "Beef 🥩", "Chicken": "Chicken 🍗", "Dessert": "Dessert 🍰", "Pasta": "Pasta 🍝", "Seafood": "Seafood 🦞", "Vegetarian": "Vegetarian 🥗", "Breakfast": "Breakfast 🍳" },
     ulkeler: { "Turkish": "Turkish 🇹🇷", "Italian": "Italian 🇮🇹", "French": "French 🇫🇷", "American": "American 🇺🇸", "Japanese": "Japanese 🇯🇵", "Chinese": "Chinese 🇨🇳", "Mexican": "Mexican 🇲🇽", "Greek": "Greek 🇬🇷" },
   },
   tr: {
     baslik: "🍽️ Yemek Tarifi Bul",
     altyazi: "✨ Malzeme gir, sihirli tarifini bul ✨",
-    ara: "Ara",
-    kategori: "📂 Kategori",
-    ulke: "🌍 Ülke",
-    araTab: "🔍 Ara",
+    ara: "Ara", rastgele: "Rastgele 🎲",
+    kategori: "📂 Kategori", ulke: "🌍 Ülke", araTab: "🔍 Ara",
     placeholder: "Malzeme girin (örn: tavuk, soğan)",
-    yukleniyor: "🌀 Yükleniyor...",
-    sonucYok: "😔 Sonuç bulunamadı.",
-    malzemeler: "🥕 Malzemeler",
-    talimatlar: "📋 Talimatlar",
-    cevir: "🌍 Türkçeye Çevir",
-    geri: "← Geri",
-    tarifDetay: "Tarif Detayı",
+    yukleniyor: "🌀 Yükleniyor...", sonucYok: "😔 Sonuç bulunamadı.",
+    malzemeler: "🥕 Malzemeler", talimatlar: "📋 Talimatlar",
+    cevir: "🌍 Türkçeye Çevir", geri: "← Geri", tarifDetay: "Tarif Detayı",
     kategoriler: { "Beef": "Dana 🥩", "Chicken": "Tavuk 🍗", "Dessert": "Tatlı 🍰", "Pasta": "Makarna 🍝", "Seafood": "Deniz Ürünleri 🦞", "Vegetarian": "Vejetaryen 🥗", "Breakfast": "Kahvaltı 🍳" },
     ulkeler: { "Turkish": "Türk 🇹🇷", "Italian": "İtalyan 🇮🇹", "French": "Fransız 🇫🇷", "American": "Amerikan 🇺🇸", "Japanese": "Japon 🇯🇵", "Chinese": "Çin 🇨🇳", "Mexican": "Meksika 🇲🇽", "Greek": "Yunan 🇬🇷" },
   }
@@ -91,6 +79,7 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
   const [filtreTarifler, setFiltreTarifler] = useState([]);
   const [yukleniyor, setYukleniyor] = useState(false);
 
+  // Malzemeye göre arama
   const tarifleriAra = async () => {
     if (!malzeme.trim()) return;
     setYukleniyor(true);
@@ -115,6 +104,13 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
     }
   };
 
+  // Rastgele tarif getir
+  const rastgeleTarif = async () => {
+    const cevap = await fetch("http://localhost:5000/api/rastgele").then(r => r.json());
+    onTarifSec(cevap.meals[0].idMeal);
+  };
+
+  // Kategori veya ülkeye göre arama
   const filtreAra = async (tip, deger) => {
     setYukleniyor(true);
     setFiltreTarifler([]);
@@ -131,8 +127,6 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
 
       {/* Header */}
       <div style={{ background: "linear-gradient(135deg, " + renkler.lavanta + ", " + renkler.mint + ")", padding: "40px 30px 30px", textAlign: "center", borderBottom: "3px solid " + renkler.lavantaKoyu, position: "relative" }}>
-        
-        {/* Dil butonu sağ üstte */}
         <div style={{ position: "absolute", top: "15px", right: "20px", display: "flex", gap: "6px" }}>
           <button onClick={() => setDil("en")}
             style={{ padding: "6px 14px", background: dil === "en" ? renkler.lavantaKoyu : renkler.beyaz, color: dil === "en" ? "white" : renkler.yazi, border: "2px solid " + renkler.lavantaKoyu, borderRadius: "15px", cursor: "pointer", fontWeight: "bold", fontSize: "13px" }}>
@@ -143,7 +137,6 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
             TR
           </button>
         </div>
-
         <h1 style={{ color: renkler.yazi, margin: 0, fontSize: "42px", fontWeight: "800" }}>{t.baslik}</h1>
         <p style={{ color: renkler.yazi, opacity: 0.8, marginTop: "8px" }}>{t.altyazi}</p>
       </div>
@@ -169,6 +162,10 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
             <button onClick={tarifleriAra}
               style={{ padding: "14px 28px", marginLeft: "12px", fontSize: "15px", background: "linear-gradient(135deg, " + renkler.lavantaKoyu + ", " + renkler.mintKoyu + ")", color: "white", border: "none", borderRadius: "30px", cursor: "pointer", fontWeight: "bold" }}>
               {t.ara} 🔍
+            </button>
+            <button onClick={rastgeleTarif}
+              style={{ padding: "14px 28px", marginLeft: "12px", fontSize: "15px", background: "linear-gradient(135deg, " + renkler.mint + ", " + renkler.mintKoyu + ")", color: renkler.yazi, border: "none", borderRadius: "30px", cursor: "pointer", fontWeight: "bold" }}>
+              {t.rastgele}
             </button>
           </div>
           {yukleniyor && <p style={{ textAlign: "center", color: renkler.lavantaKoyu }}>{t.yukleniyor}</p>}
