@@ -88,7 +88,7 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
       const malzemeler = malzeme.split(",").map(m => dil === "tr" ? cevir(m) : m.trim());
       const tumSonuclar = await Promise.all(
         malzemeler.map(m =>
-          fetch("http://localhost:5000/api/search?malzeme=" + m)
+          fetch("http://98.80.98.119/api/search?malzeme=" + m)
             .then(r => r.json()).then(v => v.meals || [])
         )
       );
@@ -106,7 +106,7 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
 
   // Rastgele tarif getir
   const rastgeleTarif = async () => {
-    const cevap = await fetch("http://localhost:5000/api/rastgele").then(r => r.json());
+    const cevap = await fetch("http://98.80.98.119/api/rastgele").then(r => r.json());
     onTarifSec(cevap.meals[0].idMeal);
   };
 
@@ -115,8 +115,8 @@ function AnaSayfa({ onTarifSec, dil, setDil }) {
     setYukleniyor(true);
     setFiltreTarifler([]);
     const url = tip === "kategori"
-      ? "http://localhost:5000/api/kategori/" + deger
-      : "http://localhost:5000/api/ulke/" + deger;
+      ? "http://98.80.98.119/api/kategori/" + deger
+      : "http://98.80.98.119/api/ulke/" + deger;
     const cevap = await fetch(url).then(r => r.json());
     setFiltreTarifler(cevap.meals || []);
     setYukleniyor(false);
@@ -224,7 +224,7 @@ function DetaySayfa({ tarifId, onGeri, dil }) {
   const [tarif, setTarif] = useState(null);
 
   useState(() => {
-    fetch("http://localhost:5000/api/detay/" + tarifId)
+    fetch("http://98.80.98.119/api/detay/" + tarifId)
       .then(r => r.json()).then(v => setTarif(v.meals[0]));
   }, [tarifId]);
 
