@@ -3,7 +3,9 @@
 
 Bulut Bilişim dersi kapsamında geliştirdiğim, çift katmanlı web uygulaması.  
 Kullanıcılar malzeme girerek yemek tarifleri seçebilir, kategoriye ve ülkeye göre filtreleyebilir.
+## 🌐 Canlı Bağlantılar
 
+- **YOUTUBE:** https://youtu.be/emW6e9g5VMo
 ---
 
 ## 🛠️ Kullanılan Teknolojiler
@@ -16,13 +18,6 @@ Kullanıcılar malzeme girerek yemek tarifleri seçebilir, kategoriye ve ülkeye
 | Bulut (Backend) | AWS EC2 (Amazon Linux 2023) |
 | Bulut (Frontend) | AWS S3 (Statik Web Sitesi) |
 | Versiyon Kontrol | Git, GitHub |
-
----
-
-## 🌐 Canlı Bağlantılar
-
-- **YOUTUBE:** https://youtu.be/emW6e9g5VMo
-
 
 ---
 
